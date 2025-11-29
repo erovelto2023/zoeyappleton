@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Facebook, Instagram, Twitter, Mail, Youtube } from "lucide-react";
 
-export default function Footer() {
+export default function SiteFooter() {
   return (
     <footer className="bg-midnight text-cream border-t border-charcoal mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
