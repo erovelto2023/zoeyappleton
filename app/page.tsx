@@ -158,10 +158,10 @@ export default async function Home() {
             <p className="text-gold text-sm font-bold uppercase tracking-widest mb-4">The Architect</p>
             <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">Zoey Appleton</h2>
             <p className="text-xl text-gray-300 mb-6 italic border-l-4 border-gold pl-6 py-2">
-              "Live, Laugh, Love hard, and Read."
+              &quot;Live, Laugh, Love hard, and Read.&quot;
             </p>
             <p className="text-gray-400 mb-8 leading-relaxed">
-              Zoey Appleton doesn’t just write romance; she builds empires of emotion and suspense. Known for her "touch-her-and-you-die" energy and irresistible witty banter, she weaves tales of redemption and scorching chemistry.
+              Zoey Appleton doesn’t just write romance; she builds empires of emotion and suspense. Known for her &quot;touch-her-and-you-die&quot; energy and irresistible witty banter, she weaves tales of redemption and scorching chemistry.
             </p>
             <Link
               href="/about"

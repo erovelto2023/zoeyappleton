@@ -30,7 +30,7 @@ export default function NewsletterPage() {
                 </p>
 
                 <p className="text-gray-400 italic">
-                    "Good things come to those who wait... but bad boys are worth the patience."
+                    &quot;Good things come to those who wait... but bad boys are worth the patience.&quot;
                 </p>
             </div>
         </div>

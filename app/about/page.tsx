@@ -20,7 +20,7 @@ export default function AboutPage() {
                     </h1>
                     <div className="w-24 h-1 bg-blood-rose mx-auto mb-8"></div>
                     <p className="text-xl md:text-2xl text-gray-300 font-light tracking-wide max-w-3xl mx-auto italic">
-                        "Live, Laugh, Love hard, and Read."
+                        "&quot;Live, Laugh, Love hard, and Read.&quot;
                     </p>
                 </div>
             </div>
@@ -63,7 +63,7 @@ export default function AboutPage() {
                                 As the architect of the Zoey Appleton Universe, Zoey captivates readers by walking the razor's edge between danger and desire. Her stories transport you from the high-stakes boardrooms of <span className="text-white italic">Claimed By My Boss</span> to the shadowed secrets of <span className="text-white italic">Shadows of the Knight</span>, creating a world where ruthless billionaires meet their match in resilient heroines, and where love is the only weapon strong enough to defeat the Syndicate.
                             </p>
                             <p>
-                                Known for her <span className="text-blood-rose font-medium">"touch-her-and-you-die"</span> energy and irresistible witty banter, Zoey weaves tales of redemption and scorching chemistry that keep you on the edge of your seat. She specializes in the kind of breathtaking twists that leave you yearning for more, proving that even in the darkest shadows, love always finds a way to shine.
+                                Known for her <span className="text-blood-rose font-medium">&quot;touch-her-and-you-die&quot;</span> energy and irresistible witty banter, Zoey weaves tales of redemption and scorching chemistry that keep you on the edge of your seat. She specializes in the kind of breathtaking twists that leave you yearning for more, proving that even in the darkest shadows, love always finds a way to shine.
                             </p>
                             <p>
                                 If you seek a romance that ignites passion and demands to be felt, welcome to the world of Zoey Appleton. <span className="text-white font-medium">Prepare to be enthralled.</span>
