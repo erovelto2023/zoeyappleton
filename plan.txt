@@ -1,0 +1,166 @@
+Plan: Romance Author Website (built from The Billionaire’s Forbidden Desires Trilogy — tone, tropes & style)
+
+Nice — I read your PDF and pulled the key tone, tropes, characters and beats. The trilogy leans into a gritty, high-stakes city backdrop, billionaire/enemies-to-lovers power dynamics, suspense (kidnapping/ransom), and intense, explicit chemistry — plus surprise-pregnancy / family / redemption arcs. Use those elements as the spine of the site. 
+
+The Billionaire's Forbidden Des…
+
+ 
+
+The Billionaire's Forbidden Des…
+
+ 
+
+The Billionaire's Forbidden Des…
+
+Below is a detailed, ready-to-implement site plan that mirrors the book’s voice and converts curious readers into fans and buyers.
+
+1) Brand & Visual Direction
+
+Vibe: Urban-glamour + noir grit. Think polished skyscraper luxury (billionaire lifestyle) with shadowy alleys and neon—romance that’s dangerous and sensual. 
+
+The Billionaire's Forbidden Des…
+
+Palette: Midnight navy / charcoal, blood-rose accent, warm gold, soft cream for text blocks.
+
+Typography: Dramatic serif for headings (Playfair/Cormorant), clean sans for body (Inter/Roboto).
+
+Imagery: High-contrast photos of cityscapes, rain-slick streets, terraces overlooking lights, close but moody portraits (character moodboards). Avoid literal copyrighted covers — use original mockups.
+
+Micro-interactions: Subtle parallax on hero image, smoky page transitions, rose-petal or spark particle divider for chapter teasers.
+
+2) Sitemap & Priority Pages
+
+Homepage (Hero spotlight + 1-click reading)
+
+Books (Series hub) — book pages with buy links & excerpts
+
+World & Timeline — Sterling City map, series timeline, crossover points
+
+Meet the Characters — character cards (Zephyr, Harper, Olivia, Harper’s allies) with interactive reveals
+
+Read Now / Free Library — lead-magnet bundle (first-chapter pack + spicy epilogue)
+
+Behind the Scenes (Blog / Journal) — author voice, research, playlist, inspirations
+
+Multimedia — book trailers, audiobook clips, YouTube embed (your channel)
+
+Book Club / Reader Resources — discussion guides, printable kits, merch
+
+Mailing List / VIP — gated exclusive scenes, preorder access
+
+Contact / Press / Speaking
+
+3) Homepage: wireframe + copy hooks (in-tone)
+
+Wireframe: Full-bleed hero (city skyline at night), overlay headline, 3 CTAs: Read First Chapter — Join VIP — Watch Trailer. Under hero: rotating featured book carousel, “Meet Zephyr” microcard, social proof (reviews), & lead magnet strip.
+
+Sample hero lines (original, in the trilogy tone):
+
+He built empires with code. She built survival into a razor. In Sterling City, desire always has a price.
+CTA buttons: Read Chapter One / Claim Your Free Epilogue / Watch the Trailer.
+(These evoke the billionaire/edge-of-danger tone without quoting the book.) 
+
+The Billionaire's Forbidden Des…
+
+4) Books Hub: each book page should include
+
+Cover gallery (flat + 3D mockup), buy buttons (Amazon, Kobo, direct), and sample chapter inside a clean reader modal.
+
+Tropes & heat meter (Enemies → Lovers ✓, Kidnapping/Suspense ✓, Billionaire Boss ✓, Surprise Pregnancy ✓). These help readers choose. 
+
+The Billionaire's Forbidden Des…
+
+ 
+
+The Billionaire's Forbidden Des…
+
+“Why you’ll fall” blurb (short pitch in series voice).
+
+Scene spotlight — a short spoiler-free excerpt (under 25 words if quoting; otherwise paraphrase a tantalizing beat).
+
+Extras: character playlists, wallpapers, PDF discussion kit.
+
+5) Meet the Characters (interactive)
+
+Front: card with moody portrait, tagline (e.g., “Zephyr — empire, ice, danger”)
+
+Flip/hover: reveal personal secret, favorite line (paraphrase), what breaks them, and “their moral grey.”
+
+Add a “chemistry meter” between any two characters (for fans who love ships). This leans on the trilogy’s charged dynamics. 
+
+The Billionaire's Forbidden Des…
+
+6) World & Timeline (reader immersion)
+
+Sterling City map — click districts (downtown, entertainment, gallery, Zephyr’s tower) with short scenes/mini-flashback blurbs anchored to place. This leverages the city as character. 
+
+The Billionaire's Forbidden Des…
+
+Series timeline — show overlap between books, who appears where, and recommended read order.
+
+7) Lead Magnets & Funnels
+
+Primary magnet: “Forbidden Starter Pack” — first chapter from Book 1 + a spicy, exclusive epilogue. Gated by email.
+
+Tripwire: After sign up, offer a $0.99 short story or novella (one-click buy).
+
+VIP: $4.99/month inner circle — early chapters, monthly Q&A, behind-the-scenes, and character art drops.
+
+8) Interactive / Conversion Features
+
+“Who would Zephyr be?” quiz (ship quiz) — shareable, grow email list.
+
+In-page reader to keep people on site (distraction-free reading).
+
+Book countdown / pre-order widget for upcoming releases.
+
+Commented Scene — readers can highlight and comment on choose scenes (community engagement).
+
+Dynamic CTA: show “Read Now” vs “Preorder” depending on user’s sign-in and previous downloads.
+
+9) Blog & Content Calendar (60-90 days starter)
+
+Post types (weekly cadence):
+
+Week 1: Behind the scene of Zephyr’s launch scene (author note)
+
+Week 2: “How I write enemies-to-lovers” (craft post)
+
+Week 3: Playlist for seduction: 12 tracks that built a scene
+
+Week 4: Reader Q&A + character poll
+Also publish: Book club kits & “Write like Zoey” mini-guides. (Use blog to funnel to free library and buys.)
+
+10) Tone, Microcopy, SEO & Keywords
+
+Voice: confident, slightly snarky, sensual — alternate between gritty noir and intimate confession. Use short punchy lines in CTAs.
+
+SEO keywords: “billionaire romance series,” “enemies to lovers billionaire book,” “romantic suspense Sterling City,” “dark billionaire romance ebooks.” Use keywords in H1, H2, meta description, and first paragraph on book pages.
+
+Meta example: “The Billionaire’s Forbidden Desires — dark, enemies-to-lovers billionaire romance set in Sterling City. Read a free chapter.”
+
+11) UX / Tech Recommendations
+
+Host & CMS: Hostinger (you mentioned it earlier) + WordPress with Elementor or a lightweight React front end if you prefer. Use WooCommerce or Gumroad for direct sales.
+
+Email: ConvertKit or MailerLite (segmented funnels: new subscribers, buyers, VIP).
+
+Analytics: GA4 + heatmaps (Hotjar) to track which excerpt converts best.
+
+Accessibility: readable contrast, skip links, keyboard nav.
+
+12) Monetization & Growth
+
+Primary revenue: book sales (retailer links), direct store (signed ebooks), audiobooks.
+
+Secondary: merch (character wallpapers, bookmarks), Patreon-style VIP, paid book club kits.
+
+Growth: TikTok/YouTube shorts snippets (use your existing channels), Instagram moodboards, and targeted FB/IG ads for lead magnet.
+
+13) Example content snippets (original, safe length & tone)
+
+Email welcome subject: “Welcome to Sterling City — your first forbidden chapter inside.”
+
+Popup microcopy: “Start the series — grab the first chapter + a secret epilogue.”
+
+Footer tagline: “Zoey Appleton — love that bites back.”

@@ -7,7 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -52,6 +52,11 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        midnight: "#0F172A", // Deep Midnight Blue
+        charcoal: "#333333", // Charcoal
+        "blood-rose": "#9F1239", // Deep Rose Red
+        gold: "#D4AF37", // Muted Gold
+        cream: "#F8FAFC", // Off-White
       },
       borderRadius: {
         lg: "var(--radius)",
