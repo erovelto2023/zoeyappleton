@@ -14,7 +14,7 @@ export default function TermsOfService() {
 
                 <div className="prose prose-invert prose-lg max-w-none text-gray-300">
                     <p className="lead text-xl text-gold mb-8">
-                        Welcome to Zoey Appleton's website. By accessing or using this site, you agree to be bound by these terms.
+                        Welcome to Zoey Appleton&apos;s website. By accessing or using this site, you agree to be bound by these terms.
                     </p>
 
                     <h2 className="text-2xl font-serif font-bold text-white mt-12 mb-6">1. Acceptance of Terms</h2>
@@ -34,7 +34,7 @@ export default function TermsOfService() {
 
                     <h2 className="text-2xl font-serif font-bold text-white mt-12 mb-6">4. Disclaimer</h2>
                     <p>
-                        This website is provided "as is" without any representations or warranties, express or implied. Zoey Appleton makes no representations or warranties in relation to this website or the information and materials provided on this website.
+                        This website is provided &quot;as is&quot; without any representations or warranties, express or implied. Zoey Appleton makes no representations or warranties in relation to this website or the information and materials provided on this website.
                     </p>
 
                     <h2 className="text-2xl font-serif font-bold text-white mt-12 mb-6">5. Limitation of Liability</h2>

@@ -20,7 +20,7 @@ export default function Error({
             <AlertTriangle className="w-24 h-24 text-gold mb-8" />
             <h2 className="text-4xl font-serif font-bold text-cream mb-4">Something went wrong!</h2>
             <p className="text-xl text-gray-400 mb-8 max-w-md">
-                Even the best laid plans sometimes fail. We're working on fixing this glitch in the system.
+                Even the best laid plans sometimes fail. We&apos;re working on fixing this glitch in the system.
             </p>
             <button
                 onClick={
