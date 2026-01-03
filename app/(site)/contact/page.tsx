@@ -1,6 +1,36 @@
-import { Mail, MessageSquare } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import axios from "axios";
+import { Mail, MessageSquare, Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function ContactPage() {
+    const [loading, setLoading] = useState(false);
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: ""
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+    };
+
+    const onSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            setLoading(true);
+            await axios.post("/api/messages", formData);
+            toast.success("Message sent successfully!");
+            setFormData({ name: "", email: "", message: "" });
+        } catch (error) {
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
             <div className="text-center mb-16">
@@ -47,13 +77,17 @@ export default function ContactPage() {
                 {/* Contact Form */}
                 <div className="bg-charcoal p-8 rounded-sm border border-gray-800">
                     <h2 className="text-2xl font-serif font-bold text-white mb-6">Send a Message</h2>
-                    <form className="space-y-6">
+                    <form onSubmit={onSubmit} className="space-y-6">
                         <div>
                             <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">Name</label>
                             <input
                                 type="text"
                                 id="name"
-                                className="w-full bg-midnight border border-gray-700 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors"
+                                required
+                                value={formData.name}
+                                onChange={handleChange}
+                                disabled={loading}
+                                className="w-full bg-midnight border border-gray-700 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors disabled:opacity-50"
                                 placeholder="Your name"
                             />
                         </div>
@@ -63,7 +97,11 @@ export default function ContactPage() {
                             <input
                                 type="email"
                                 id="email"
-                                className="w-full bg-midnight border border-gray-700 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors"
+                                required
+                                value={formData.email}
+                                onChange={handleChange}
+                                disabled={loading}
+                                className="w-full bg-midnight border border-gray-700 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors disabled:opacity-50"
                                 placeholder="your@email.com"
                             />
                         </div>
@@ -73,16 +111,21 @@ export default function ContactPage() {
                             <textarea
                                 id="message"
                                 rows={4}
-                                className="w-full bg-midnight border border-gray-700 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors"
+                                required
+                                value={formData.message}
+                                onChange={handleChange}
+                                disabled={loading}
+                                className="w-full bg-midnight border border-gray-700 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-gold transition-colors disabled:opacity-50"
                                 placeholder="What's on your mind?"
                             ></textarea>
                         </div>
 
                         <button
                             type="submit"
-                            className="w-full bg-blood-rose hover:bg-red-900 text-white font-medium py-3 rounded-sm transition-colors duration-300 uppercase tracking-widest text-sm"
+                            disabled={loading}
+                            className="w-full bg-blood-rose hover:bg-red-900 text-white font-medium py-3 rounded-sm transition-colors duration-300 uppercase tracking-widest text-sm flex items-center justify-center disabled:opacity-70"
                         >
-                            Send Message
+                            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Send Message"}
                         </button>
                     </form>
                 </div>

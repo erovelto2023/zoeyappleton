@@ -1,11 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
-
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/SiteFooter'
 import { ThemeProvider } from '@/components/theme-provider'
-
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -34,9 +30,7 @@ export default function RootLayout({
             defaultTheme='dark'
             disableTransitionOnChange
           >
-            <Navbar />
-            <main className='grow flex flex-col'>{children}</main>
-            <Footer />
+            {children}
           </ThemeProvider>
         </body>
       </html>
