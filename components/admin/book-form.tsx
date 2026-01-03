@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Trash } from "lucide-react";
+import { Trash, Plus, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +22,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const formSchema = z.object({
     title: z.string().min(1, "Title is required"),
@@ -39,6 +39,13 @@ const formSchema = z.object({
     rating: z.coerce.number().min(0).max(5).optional(),
     releaseDate: z.string().optional(),
     tropes: z.string().optional(),
+    reviews: z.array(z.object({
+        user: z.string().min(1, "Name required"),
+        rating: z.coerce.number().min(0).max(5),
+        text: z.string().min(1, "Review text required"),
+        date: z.string().optional(),
+        source: z.string().optional()
+    })).optional()
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -71,6 +78,7 @@ export const BookForm: React.FC<BookFormProps> = ({ initialData }) => {
         rating: initialData.rating || 0,
         tropes: initialData.tropes?.join(", ") || "",
         releaseDate: initialData.releaseDate ? new Date(initialData.releaseDate).toISOString().split('T')[0] : "",
+        reviews: initialData.reviews || [],
     } : {
         title: "",
         coverImage: "",
@@ -86,11 +94,17 @@ export const BookForm: React.FC<BookFormProps> = ({ initialData }) => {
         rating: 0,
         releaseDate: "",
         tropes: "",
+        reviews: [],
     };
 
     const form = useForm<FormValues>({
         resolver: zodResolver(formSchema) as any,
         defaultValues,
+    });
+
+    const { fields, append, remove } = useFieldArray({
+        control: form.control,
+        name: "reviews",
     });
 
     const onSubmit = async (data: FormValues) => {
@@ -106,6 +120,7 @@ export const BookForm: React.FC<BookFormProps> = ({ initialData }) => {
                     direct: data.direct,
                 },
                 tropes: data.tropes ? data.tropes.split(",").map((t) => t.trim()) : [],
+                reviews: data.reviews,
             };
 
             if (initialData) {
@@ -285,6 +300,89 @@ export const BookForm: React.FC<BookFormProps> = ({ initialData }) => {
                             )}
                         />
                     </div>
+
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between">
+                            <CardTitle>Reviews</CardTitle>
+                            <Button type="button" variant="outline" size="sm" onClick={() => append({ user: "", rating: 5, text: "", source: "", date: new Date().toISOString().split('T')[0] })}>
+                                <Plus className="h-4 w-4 mr-2" /> Add Review
+                            </Button>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            {fields.map((field, index) => (
+                                <div key={field.id} className="p-4 border rounded-md relative bg-slate-50 dark:bg-slate-900">
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="sm"
+                                        className="absolute top-2 right-2 text-red-500 hover:text-red-700"
+                                        onClick={() => remove(index)}
+                                    >
+                                        <X className="h-4 w-4" />
+                                    </Button>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pr-8">
+                                        <FormField
+                                            control={form.control}
+                                            name={`reviews.${index}.user`}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Reviewer Name</FormLabel>
+                                                    <FormControl><Input {...field} placeholder="Jane Doe" /></FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name={`reviews.${index}.source`}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Source</FormLabel>
+                                                    <FormControl><Input {...field} placeholder="Amazon, Goodreads..." /></FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name={`reviews.${index}.rating`}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Rating</FormLabel>
+                                                    <FormControl><Input type="number" min={0} max={5} step="0.1" {...field} /></FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name={`reviews.${index}.date`}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Date</FormLabel>
+                                                    <FormControl><Input type="date" {...field} /></FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <div className="col-span-full">
+                                            <FormField
+                                                control={form.control}
+                                                name={`reviews.${index}.text`}
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Review Text</FormLabel>
+                                                        <FormControl><Textarea rows={3} {...field} placeholder="This book was amazing..." /></FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </CardContent>
+                    </Card>
 
                     <Card>
                         <CardContent className="pt-6">
