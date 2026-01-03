@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
 
 export async function POST(request: NextRequest) {
     try {
@@ -20,8 +20,8 @@ export async function POST(request: NextRequest) {
 
         // Save to public/images
         const uploadDir = path.join(process.cwd(), "public", "images");
-        // Ensure the directory exists (optional, but good practice if not guaranteed)
-        // await mkdir(uploadDir, { recursive: true }); 
+        // Ensure the directory exists
+        await mkdir(uploadDir, { recursive: true });
 
         const filepath = path.join(uploadDir, filename);
 
