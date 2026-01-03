@@ -5,6 +5,7 @@ import dbConnect from '@/lib/db';
 import Character from '@/models/Character';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Search } from '@/components/ui/search';
+import Image from 'next/image';
 
 export const dynamic = 'force-dynamic';
 
@@ -64,7 +65,7 @@ export default async function CharactersPage({
                             <div className="aspect-square relative bg-muted">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 {char.image ? (
-                                    <img src={char.image} alt={char.name} className="object-cover w-full h-full" />
+                                    <Image src={char.image} alt={char.name} fill className="object-cover" unoptimized />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-muted-foreground">No Image</div>
                                 )}

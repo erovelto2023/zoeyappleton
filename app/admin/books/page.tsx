@@ -6,6 +6,7 @@ import Book from '@/models/Book';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Search } from '@/components/ui/search';
 import { PaginationControls } from '@/components/ui/pagination-controls';
+import Image from 'next/image';
 
 export const dynamic = 'force-dynamic';
 
@@ -70,10 +71,12 @@ export default async function BooksPage({
                             <div className="aspect-[2/3] relative bg-muted">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 {book.coverImage ? (
-                                    <img
+                                    <Image
                                         src={book.coverImage}
                                         alt={book.title}
-                                        className="object-cover w-full h-full transition group-hover:scale-105"
+                                        fill
+                                        className="object-cover transition group-hover:scale-105"
+                                        unoptimized
                                     />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-muted-foreground">
