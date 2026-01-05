@@ -29,7 +29,8 @@ export async function POST(request: NextRequest) {
         await writeFile(filepath, buffer);
 
         // Return the URL
-        const fileUrl = `/images/${filename}`;
+        // Use the dynamic API route to serve the image immediately
+        const fileUrl = `/api/images/${filename}`;
 
         return NextResponse.json({ success: true, url: fileUrl });
     } catch (error: any) {
