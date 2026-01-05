@@ -1,8 +1,8 @@
 "use client";
 
-import { UploadDropzone } from "@/lib/uploadthing";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
+import { Trash, ImagePlus, Loader2 } from "lucide-react"; // Added Icons
 import Image from "next/image";
 import toast from "react-hot-toast";
 
@@ -19,15 +19,50 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
     onRemove,
     value,
 }) => {
+    const [isUploading, setIsUploading] = useState(false);
+
     // Ensure we are working with a valid array of URLs
     const urls = Array.isArray(value) ? value : [];
+
+    const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        try {
+            const file = e.target.files?.[0];
+            if (!file) return;
+
+            setIsUploading(true);
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const response = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || "Upload failed");
+            }
+
+            const data = await response.json();
+            onChange(data.url);
+            toast.success("Image uploaded successfully");
+
+        } catch (error: any) {
+            console.error("Upload error:", error);
+            toast.error(error.message || "Something went wrong");
+        } finally {
+            setIsUploading(false);
+            // Reset the input value so the same file can be selected again if needed
+            e.target.value = '';
+        }
+    };
 
     return (
         <div className="space-y-4">
             {/* Image Previews */}
             {urls.length > 0 && (
                 <div className="flex items-center gap-4 flex-wrap">
-                    {urls.map((url) => (
+                    {urls.map((url) => ( // Use index if URL isn't unique, but it should be
                         <div key={url} className="relative w-[200px] h-[300px] rounded-md overflow-hidden border border-slate-200 shadow-sm transition hover:shadow-md">
                             <div className="z-10 absolute top-2 right-2">
                                 <Button
@@ -35,7 +70,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
                                     onClick={() => onRemove(url)}
                                     variant="destructive"
                                     size="icon"
-                                    disabled={disabled}
+                                    disabled={disabled || isUploading}
                                 >
                                     <Trash className="h-4 w-4" />
                                 </Button>
@@ -45,43 +80,43 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
                                 className="object-cover"
                                 alt="Uploaded Image"
                                 src={url}
-                                unoptimized // Crucial for external URLs like UploadThing
+                                unoptimized
                             />
                         </div>
                     ))}
                 </div>
             )}
 
-            {/* Upload Dropzone (Result: 1 image) */}
+            {/* Custom File Input (replaces UploadThing) */}
             {urls.length === 0 && (
-                <div className="w-full max-w-sm rounded-lg overflow-hidden border border-dashed border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-slate-900 transition-colors">
-                    <UploadDropzone
-                        endpoint="imageUploader"
-                        onClientUploadComplete={(res) => {
-                            console.log("UploadThing Response:", res);
-                            // UploadThing returns an array of uploaded files
-                            if (res && res.length > 0) {
-                                const url = res[0].url;
-                                if (url) {
-                                    onChange(url);
-                                    toast.success("Image uploaded successfully");
-                                } else {
-                                    console.error("No URL found in response:", res[0]);
-                                    toast.error("Upload succeeded but URL was missing.");
-                                }
-                            }
-                        }}
-                        onUploadError={(error: Error) => {
-                            console.error("UploadThing Error:", error);
-                            toast.error(`Error: ${error.message}`);
-                        }}
-                        appearance={{
-                            button: "bg-pink-600 hover:bg-pink-700 text-white font-semibold text-sm",
-                            container: "p-8",
-                            label: "text-gray-500 hover:text-pink-600 dark:text-gray-400",
-                            allowedContent: "text-gray-400 text-xs"
-                        }}
-                    />
+                <div className="flex items-center justify-center w-full max-w-sm">
+                    <label
+                        htmlFor="dropzone-file"
+                        className={`flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 ${isUploading || disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    >
+                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                            {isUploading ? (
+                                <>
+                                    <Loader2 className="w-10 h-10 mb-3 text-gray-400 animate-spin" />
+                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">Uploading...</p>
+                                </>
+                            ) : (
+                                <>
+                                    <ImagePlus className="w-10 h-10 mb-3 text-gray-400" />
+                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or GIF (MAX. 2MB)</p>
+                                </>
+                            )}
+                        </div>
+                        <input
+                            id="dropzone-file"
+                            type="file"
+                            className="hidden"
+                            onChange={handleUpload}
+                            accept="image/*"
+                            disabled={disabled || isUploading}
+                        />
+                    </label>
                 </div>
             )}
         </div>

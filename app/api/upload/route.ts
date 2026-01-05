@@ -18,8 +18,8 @@ export async function POST(request: NextRequest) {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         const filename = file.name.replace(/\.[^/.]+$/, "") + '-' + uniqueSuffix + path.extname(file.name);
 
-        // Save to public/assets
-        const uploadDir = path.join(process.cwd(), "public", "assets");
+        // Save to public/images
+        const uploadDir = path.join(process.cwd(), "public", "images");
         // Ensure the directory exists
         await mkdir(uploadDir, { recursive: true });
 
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
         await writeFile(filepath, buffer);
 
         // Return the URL
-        const fileUrl = `/assets/${filename}`;
+        const fileUrl = `/images/${filename}`;
 
         return NextResponse.json({ success: true, url: fileUrl });
     } catch (error: any) {
