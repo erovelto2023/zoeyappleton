@@ -58,13 +58,21 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
                     <UploadDropzone
                         endpoint="imageUploader"
                         onClientUploadComplete={(res) => {
-                            if (res && res[0]) {
-                                onChange(res[0].ufsUrl || res[0].url);
-                                toast.success("Image uploaded successfully");
+                            console.log("UploadThing Response:", res);
+                            // UploadThing returns an array of uploaded files
+                            if (res && res.length > 0) {
+                                const url = res[0].url;
+                                if (url) {
+                                    onChange(url);
+                                    toast.success("Image uploaded successfully");
+                                } else {
+                                    console.error("No URL found in response:", res[0]);
+                                    toast.error("Upload succeeded but URL was missing.");
+                                }
                             }
                         }}
                         onUploadError={(error: Error) => {
-                            console.error(error);
+                            console.error("UploadThing Error:", error);
                             toast.error(`Error: ${error.message}`);
                         }}
                         appearance={{
