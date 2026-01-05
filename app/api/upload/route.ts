@@ -14,9 +14,10 @@ export async function POST(request: NextRequest) {
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        // Create unique filename
+        // Create unique filename (sanitize input)
+        const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, "-");
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const filename = file.name.replace(/\.[^/.]+$/, "") + '-' + uniqueSuffix + path.extname(file.name);
+        const filename = sanitizedName.replace(/\.[^/.]+$/, "") + '-' + uniqueSuffix + path.extname(file.name);
 
         // Save to public/images
         const uploadDir = path.join(process.cwd(), "public", "images");
