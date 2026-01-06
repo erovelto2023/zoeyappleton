@@ -125,6 +125,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                             p: ({ node, ...props }) => <p className="mb-8" {...props} />, // larger margins
                             img: ({ node, ...props }) => (
                                 <figure className="my-10 -mx-6 md:-mx-12">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img className="w-full rounded-md shadow-lg" {...props} alt={props.alt || ""} />
                                     {props.alt && <figcaption className="text-center text-sm text-gray-500 mt-2">{props.alt}</figcaption>}
                                 </figure>
