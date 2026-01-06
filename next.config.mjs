@@ -4,6 +4,7 @@ const nextConfig = {
         remotePatterns: []
     },
     experimental: {
+        serverComponentsExternalPackages: ["mongoose"],
         serverActions: {
             bodySizeLimit: '10mb',
         },
