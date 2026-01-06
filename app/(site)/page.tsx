@@ -10,6 +10,14 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   await dbConnect();
 
+  // Helper to handle image URLs (relative vs absolute vs legacy filenames)
+  const getImageSrc = (src: string | undefined) => {
+    if (!src) return '/images/zoey.png'; // Fallback
+    if (src.startsWith('http') || src.startsWith('/')) return src;
+    // Assume it's a filename in public/images
+    return `/images/${src}`;
+  };
+
   // Fetch latest 3 books
   const books = await Book.find({}).sort({ releaseDate: -1 }).limit(3).lean();
 
@@ -75,7 +83,7 @@ export default async function Home() {
                 <div className="aspect-[2/3] w-full overflow-hidden rounded-sm shadow-2xl mb-6 border border-gray-800 group-hover:border-gold transition-colors duration-300">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={book.coverImage}
+                    src={getImageSrc(book.coverImage)}
                     alt={book.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />

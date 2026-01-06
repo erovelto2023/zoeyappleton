@@ -162,9 +162,6 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                             <Link href="/books" className="text-sm font-bold text-blood-rose uppercase tracking-widest hover:text-white transition-colors">
                                 Read my books
                             </Link>
-                            <Link href="https://twitter.com" target="_blank" className="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-white transition-colors">
-                                Twitter
-                            </Link>
                         </div>
                     </div>
                 </div>
