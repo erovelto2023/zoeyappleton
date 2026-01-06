@@ -22,11 +22,17 @@ export default async function PostsPage({
 
     const posts = await Post.find(filter).sort({ createdAt: -1 });
 
-    const formattedPosts = JSON.parse(JSON.stringify(posts)).map((post: any) => ({
-        ...post,
-        _id: post._id,
-        createdAt: post.createdAt || new Date().toISOString(),
-    }));
+    let formattedPosts = [];
+    try {
+        formattedPosts = JSON.parse(JSON.stringify(posts)).map((post: any) => ({
+            ...post,
+            _id: post._id,
+            createdAt: post.createdAt || new Date().toISOString(),
+        }));
+    } catch (error) {
+        console.error("Failed to parse posts:", error);
+        formattedPosts = [];
+    }
 
     return (
         <div className="p-8 space-y-6">
