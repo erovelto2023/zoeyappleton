@@ -22,14 +22,11 @@ export default async function PostsPage({
 
     const posts = await Post.find(filter).sort({ createdAt: -1 });
 
-    const formattedPosts = posts.map((doc) => {
-        const post = doc.toObject();
-        return {
-            ...post,
-            _id: post._id.toString(),
-            createdAt: post.createdAt ? new Date(post.createdAt).toISOString() : new Date().toISOString(),
-        };
-    });
+    const formattedPosts = JSON.parse(JSON.stringify(posts)).map((post: any) => ({
+        ...post,
+        _id: post._id,
+        createdAt: post.createdAt || new Date().toISOString(),
+    }));
 
     return (
         <div className="p-8 space-y-6">
@@ -52,7 +49,7 @@ export default async function PostsPage({
                         {query ? "No posts found matching your search." : "No blog posts found."}
                     </div>
                 ) : (
-                    formattedPosts.map((post) => (
+                    formattedPosts.map((post: any) => (
                         <Card key={post._id}>
                             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                 <CardTitle className="text-xl font-semibold">{post.title}</CardTitle>
