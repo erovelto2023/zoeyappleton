@@ -110,7 +110,21 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             {/* Content */}
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="prose prose-invert prose-lg max-w-none prose-headings:font-serif prose-headings:text-gold prose-a:text-blood-rose hover:prose-a:text-red-400 prose-img:rounded-md prose-img:shadow-lg">
-                    <ReactMarkdown remarkPlugins={[remarkBreaks]}>{post.content}</ReactMarkdown>
+                    <ReactMarkdown
+                        remarkPlugins={[remarkBreaks]}
+                        components={{
+                            p: ({ node, ...props }) => <p className="mb-6 leading-relaxed text-gray-300" {...props} />,
+                            li: ({ node, ...props }) => <li className="mb-2 text-gray-300" {...props} />,
+                            ul: ({ node, ...props }) => <ul className="mb-6 ml-4 list-disc text-gray-300" {...props} />,
+                            ol: ({ node, ...props }) => <ol className="mb-6 ml-4 list-decimal text-gray-300" {...props} />,
+                            h1: ({ node, ...props }) => <h1 className="text-3xl font-serif font-bold text-gold mb-6 mt-8" {...props} />,
+                            h2: ({ node, ...props }) => <h2 className="text-2xl font-serif font-bold text-gold mb-4 mt-8" {...props} />,
+                            h3: ({ node, ...props }) => <h3 className="text-xl font-serif font-bold text-gold mb-4 mt-6" {...props} />,
+                            blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-blood-rose pl-4 italic text-gray-400 my-6" {...props} />,
+                        }}
+                    >
+                        {post.content}
+                    </ReactMarkdown>
                 </div>
             </div>
 
