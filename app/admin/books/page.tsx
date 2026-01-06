@@ -36,14 +36,18 @@ export default async function BooksPage({
     const hasNextPage = page < totalPages;
     const hasPrevPage = page > 1;
 
-    const formattedBooks = books.map((doc) => {
-        const book = doc.toObject();
-        return {
+    let formattedBooks: any[] = [];
+    try {
+        const plainBooks = JSON.parse(JSON.stringify(books));
+        formattedBooks = plainBooks.map((book: any) => ({
             ...book,
-            _id: book._id.toString(),
+            _id: book._id,
             releaseDate: book.releaseDate ? new Date(book.releaseDate).toLocaleDateString() : 'N/A',
-        };
-    });
+        }));
+    } catch (err) {
+        console.error("Error formatting books:", err);
+        formattedBooks = [];
+    }
 
     return (
         <div className="p-8 space-y-6">
@@ -66,7 +70,7 @@ export default async function BooksPage({
                         {query ? "No books found matching your search." : "No books found. Create one to get started."}
                     </div>
                 ) : (
-                    formattedBooks.map((book) => (
+                    formattedBooks.map((book: any) => (
                         <Card key={book._id} className="overflow-hidden group">
                             <div className="aspect-[2/3] relative bg-muted">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -29,15 +29,19 @@ export default async function CharactersPage({
         characters = await Character.find(filter);
     }
 
-    const formattedCharacters = characters.map((doc) => {
-        const char = doc.toObject();
-        return {
+    let formattedCharacters: any[] = [];
+    try {
+        const plainChars = JSON.parse(JSON.stringify(characters));
+        formattedCharacters = plainChars.map((char: any) => ({
             ...char,
-            _id: char._id.toString(),
+            _id: char._id,
             bookName: char.book && typeof char.book === 'object' && 'title' in char.book ? char.book.title : 'No Book Assigned',
-            book: char.book ? char.book.toString() : null,
-        };
-    });
+            book: char.book ? char.book._id || char.book : null,
+        }));
+    } catch (err) {
+        console.error("Error formatting characters:", err);
+        formattedCharacters = [];
+    }
 
     return (
         <div className="p-8 space-y-6">
@@ -60,7 +64,7 @@ export default async function CharactersPage({
                         {query ? "No characters found matching your search." : "No characters found."}
                     </div>
                 ) : (
-                    formattedCharacters.map((char) => (
+                    formattedCharacters.map((char: any) => (
                         <Card key={char._id} className="overflow-hidden">
                             <div className="aspect-square relative bg-muted">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
