@@ -30,7 +30,7 @@ export default async function BlogPage() {
                         return (
                             <article key={post._id.toString()} className="bg-charcoal rounded-sm border border-gray-800 hover:border-gold transition-colors duration-300 overflow-hidden group flex flex-col h-full">
                                 {post.coverImage && (
-                                    <Link href={`/blog/${post._id}`} className="block aspect-[3/2] overflow-hidden relative">
+                                    <Link href={`/blog/${post.slug || post._id}`} className="block aspect-[3/2] overflow-hidden relative">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
                                             src={post.coverImage}
@@ -50,7 +50,7 @@ export default async function BlogPage() {
                                     </div>
 
                                     <h2 className="text-lg font-serif font-bold text-white mb-3 hover:text-gold transition-colors line-clamp-2">
-                                        <Link href={`/blog/${post._id}`}>{post.title}</Link>
+                                        <Link href={`/blog/${post.slug || post._id}`}>{post.title}</Link>
                                     </h2>
 
                                     <p className="text-gray-400 mb-4 text-sm line-clamp-3 leading-relaxed flex-grow">
@@ -58,7 +58,7 @@ export default async function BlogPage() {
                                     </p>
 
                                     <Link
-                                        href={`/blog/${post._id}`}
+                                        href={`/blog/${post.slug || post._id}`}
                                         className="text-blood-rose hover:text-red-400 font-medium uppercase tracking-wider text-xs transition-colors mt-auto inline-block"
                                     >
                                         Read More &rarr;

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import Post from "@/models/Post";
 import { auth } from "@clerk/nextjs/server";
+import slugify from "slugify";
 
 export async function GET(req: NextRequest) {
     try {
@@ -22,6 +23,19 @@ export async function POST(req: NextRequest) {
 
         await dbConnect();
         const body = await req.json();
+
+        // Generate slug
+        const baseSlug = slugify(body.title, { lower: true, strict: true });
+        let uniqueSlug = baseSlug;
+        let count = 1;
+
+        while (await Post.findOne({ slug: uniqueSlug })) {
+            uniqueSlug = `${baseSlug}-${count}`;
+            count++;
+        }
+
+        body.slug = uniqueSlug;
+
         const post = await Post.create(body);
         return NextResponse.json(post, { status: 201 });
     } catch (error: any) {

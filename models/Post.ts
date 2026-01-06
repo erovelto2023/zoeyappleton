@@ -26,6 +26,12 @@ const PostSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    slug: {
+        type: String,
+        unique: true,
+        sparse: true, // Allows null/undefined for existing docs if needed, though we should backfill
+        trim: true,
+    },
 }, { timestamps: true });
 
 export default mongoose.models.Post || mongoose.model('Post', PostSchema);

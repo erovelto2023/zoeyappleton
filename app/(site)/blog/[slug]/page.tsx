@@ -5,16 +5,21 @@ import dbConnect from "@/lib/db";
 import Post from "@/models/Post";
 import { Metadata } from "next";
 import ReactMarkdown from "react-markdown";
+import remarkBreaks from "remark-breaks";
+import mongoose from "mongoose";
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
     await dbConnect();
     let post = null;
     try {
-        post = await Post.findById(params.id);
+        post = await Post.findOne({ slug: params.slug });
+        if (!post && mongoose.Types.ObjectId.isValid(params.slug)) {
+            post = await Post.findById(params.slug);
+        }
     } catch (e) {
-        // invalid id
+        // error
     }
 
     if (!post) {
@@ -29,12 +34,15 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     };
 }
 
-export default async function BlogPostPage({ params }: { params: { id: string } }) {
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
     await dbConnect();
 
     let post;
     try {
-        post = await Post.findById(params.id);
+        post = await Post.findOne({ slug: params.slug });
+        if (!post && mongoose.Types.ObjectId.isValid(params.slug)) {
+            post = await Post.findById(params.slug);
+        }
     } catch (error) {
         notFound();
     }
@@ -102,7 +110,7 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
             {/* Content */}
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="prose prose-invert prose-lg max-w-none prose-headings:font-serif prose-headings:text-gold prose-a:text-blood-rose hover:prose-a:text-red-400 prose-img:rounded-md prose-img:shadow-lg">
-                    <ReactMarkdown>{post.content}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkBreaks]}>{post.content}</ReactMarkdown>
                 </div>
             </div>
 

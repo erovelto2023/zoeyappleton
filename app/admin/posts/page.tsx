@@ -6,6 +6,14 @@ import Post from '@/models/Post';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Search } from '@/components/ui/search';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 
 export const dynamic = 'force-dynamic';
 
@@ -49,35 +57,52 @@ export default async function PostsPage({
                 <Search placeholder="Search posts..." />
             </div>
 
-            <div className="grid gap-4">
-                {formattedPosts.length === 0 ? (
-                    <div className="text-center py-10 text-muted-foreground">
-                        {query ? "No posts found matching your search." : "No blog posts found."}
-                    </div>
-                ) : (
-                    formattedPosts.map((post: any) => (
-                        <Card key={post._id}>
-                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                                <CardTitle className="text-xl font-semibold">{post.title}</CardTitle>
-                                <Badge variant={post.isPublished ? "default" : "secondary"}>
-                                    {post.isPublished ? 'Published' : 'Draft'}
-                                </Badge>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="flex justify-between items-end">
-                                    <p className="text-sm text-muted-foreground line-clamp-2 max-w-[80%]">
-                                        {post.excerpt || post.content.substring(0, 100)}...
-                                    </p>
-                                    <Link href={`/admin/posts/${post._id}`}>
-                                        <Button variant="outline" size="sm">
-                                            <Edit className="w-4 h-4 mr-2" /> Edit
-                                        </Button>
-                                    </Link>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))
-                )}
+            <div className="border rounded-md">
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Title</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead>Date</TableHead>
+                            <TableHead className="text-right">Actions</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {formattedPosts.length === 0 ? (
+                            <TableRow>
+                                <TableCell colSpan={4} className="h-24 text-center">
+                                    {query ? "No posts found matching your search." : "No blog posts found."}
+                                </TableCell>
+                            </TableRow>
+                        ) : (
+                            formattedPosts.map((post: any) => (
+                                <TableRow key={post._id}>
+                                    <TableCell className="font-medium">
+                                        {post.title}
+                                        <div className="text-xs text-muted-foreground line-clamp-1 max-w-[300px]">
+                                            {post.excerpt || (post.content ? post.content.substring(0, 50) + "..." : "")}
+                                        </div>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Badge variant={post.isPublished ? "default" : "secondary"}>
+                                            {post.isPublished ? 'Published' : 'Draft'}
+                                        </Badge>
+                                    </TableCell>
+                                    <TableCell>
+                                        {new Date(post.createdAt).toLocaleDateString()}
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        <Link href={`/admin/posts/${post._id}`}>
+                                            <Button variant="ghost" size="sm">
+                                                <Edit className="w-4 h-4 mr-2" /> Edit
+                                            </Button>
+                                        </Link>
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        )}
+                    </TableBody>
+                </Table>
             </div>
         </div>
     );
