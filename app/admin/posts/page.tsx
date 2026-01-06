@@ -27,7 +27,7 @@ export default async function PostsPage({
         return {
             ...post,
             _id: post._id.toString(),
-            createdAt: post.createdAt.toISOString(),
+            createdAt: post.createdAt ? new Date(post.createdAt).toISOString() : new Date().toISOString(),
         };
     });
 

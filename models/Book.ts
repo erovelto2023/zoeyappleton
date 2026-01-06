@@ -46,7 +46,7 @@ const BookSchema = new mongoose.Schema({
         date: String,
         source: String,
     }],
-});
+}, { timestamps: true });
 
 if (process.env.NODE_ENV === 'development') {
     delete mongoose.models.Book;

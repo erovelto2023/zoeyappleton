@@ -42,7 +42,7 @@ const CharacterSchema = new mongoose.Schema({
         name: String,
         description: String,
     }],
-});
+}, { timestamps: true });
 
 if (process.env.NODE_ENV === 'development') {
     delete mongoose.models.Character;

@@ -72,8 +72,24 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
                 </div>
             </header>
 
-            {/* Separator */}
-            <div className="w-24 h-1 bg-blood-rose mx-auto mb-16"></div>
+            {/* Feature Image */}
+            {
+                post.coverImage && (
+                    <div className="relative w-full h-[400px] md:h-[500px] max-w-6xl mx-auto mb-16 px-4">
+                        <div className="relative w-full h-full rounded-sm overflow-hidden shadow-2xl">
+                            {/* Using img tag directly or Next Image with specific config if easier for dynamic paths */}
+                            <img
+                                src={post.coverImage}
+                                alt={post.title}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    </div>
+                )
+            }
+
+            {/* Separator - Only show if no image, or maybe styled differently. Keeping logic simple. */}
+            {!post.coverImage && <div className="w-24 h-1 bg-blood-rose mx-auto mb-16"></div>}
 
             {/* Content */}
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,6 +110,6 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
                     Explore My Books
                 </Link>
             </div>
-        </article>
+        </article >
     );
 }

@@ -14,6 +14,9 @@ const PostSchema = new mongoose.Schema({
         type: String,
         maxlength: [200, 'Excerpt cannot be more than 200 characters'],
     },
+    coverImage: {
+        type: String,
+    },
     tags: [String],
     publishedAt: {
         type: Date,
@@ -23,6 +26,6 @@ const PostSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-});
+}, { timestamps: true });
 
 export default mongoose.models.Post || mongoose.model('Post', PostSchema);

@@ -21,32 +21,43 @@ export default async function BlogPage() {
 
             <div className="space-y-12">
                 {posts.map((post) => (
-                    <article key={post._id.toString()} className="bg-charcoal p-8 rounded-sm border border-gray-800 hover:border-gold transition-colors duration-300">
-                        <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-                            <span className="flex items-center gap-1">
-                                <Calendar className="w-4 h-4" />
-                                {new Date(post.publishedAt).toLocaleDateString()}
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <Tag className="w-4 h-4" />
-                                {post.tags.join(", ")}
-                            </span>
+                    <article key={post._id.toString()} className="bg-charcoal rounded-sm border border-gray-800 hover:border-gold transition-colors duration-300 overflow-hidden group">
+                        {post.coverImage && (
+                            <Link href={`/blog/${post._id}`} className="block h-64 overflow-hidden relative">
+                                <img
+                                    src={post.coverImage}
+                                    alt={post.title}
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
+                            </Link>
+                        )}
+                        <div className="p-8">
+                            <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                                <span className="flex items-center gap-1">
+                                    <Calendar className="w-4 h-4" />
+                                    {new Date(post.publishedAt).toLocaleDateString()}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                    <Tag className="w-4 h-4" />
+                                    {post.tags.join(", ")}
+                                </span>
+                            </div>
+
+                            <h2 className="text-2xl font-serif font-bold text-white mb-4 hover:text-gold transition-colors">
+                                <Link href={`/blog/${post._id}`}>{post.title}</Link>
+                            </h2>
+
+                            <p className="text-gray-400 mb-6 leading-relaxed">
+                                {post.excerpt}
+                            </p>
+
+                            <Link
+                                href={`/blog/${post._id}`}
+                                className="text-blood-rose hover:text-red-400 font-medium uppercase tracking-wider text-sm transition-colors"
+                            >
+                                Read More &rarr;
+                            </Link>
                         </div>
-
-                        <h2 className="text-2xl font-serif font-bold text-white mb-4 hover:text-gold transition-colors">
-                            <Link href={`/blog/${post._id}`}>{post.title}</Link>
-                        </h2>
-
-                        <p className="text-gray-400 mb-6 leading-relaxed">
-                            {post.excerpt}
-                        </p>
-
-                        <Link
-                            href={`/blog/${post._id}`}
-                            className="text-blood-rose hover:text-red-400 font-medium uppercase tracking-wider text-sm transition-colors"
-                        >
-                            Read More &rarr;
-                        </Link>
                     </article>
                 ))}
             </div>
