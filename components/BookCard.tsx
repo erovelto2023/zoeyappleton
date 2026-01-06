@@ -11,12 +11,18 @@ interface BookProps {
 }
 
 export default function BookCard({ book }: { book: BookProps }) {
+    const getImageSrc = (src: string | undefined) => {
+        if (!src) return '/images/zoey.png';
+        if (src.startsWith('http') || src.startsWith('/')) return src;
+        return `/images/${src}`;
+    };
+
     return (
         <div className="bg-midnight border border-charcoal hover:border-gold transition-colors duration-300 rounded-sm overflow-hidden flex flex-col h-full group">
             <div className="relative aspect-[2/3] overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                    src={book.coverImage}
+                    src={getImageSrc(book.coverImage)}
                     alt={book.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
