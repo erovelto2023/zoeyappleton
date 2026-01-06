@@ -4,12 +4,18 @@ import Link from "next/link";
 import dbConnect from "@/lib/db";
 import Post from "@/models/Post";
 import { Metadata } from "next";
+import ReactMarkdown from "react-markdown";
 
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
     await dbConnect();
-    const post = await Post.findById(params.id);
+    let post = null;
+    try {
+        post = await Post.findById(params.id);
+    } catch (e) {
+        // invalid id
+    }
 
     if (!post) {
         return {
@@ -33,11 +39,19 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
         notFound();
     }
 
-    if (!post || !post.isPublished) {
-        // Optionally allow admin to view if authenticated, but for now 404
-        // Logic to check auth could be added here
+    if (!post || (!post.isPublished && process.env.NODE_ENV === 'production')) {
         if (!post) notFound();
     }
+
+    const formattedDate = post.publishedAt
+        ? new Date(post.publishedAt).toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        })
+        : 'Draft';
+
+    const tags = post.tags || [];
 
     return (
         <article className="min-h-screen bg-midnight pt-32 pb-20">
@@ -57,46 +71,38 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
                 <div className="flex flex-wrap items-center justify-center gap-6 text-gray-400 text-sm">
                     <span className="flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
-                        {new Date(post.publishedAt).toLocaleDateString(undefined, {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        })}
+                        {formattedDate}
                     </span>
-                    {post.tags && post.tags.length > 0 && (
+                    {tags.length > 0 && (
                         <span className="flex items-center gap-2">
                             <Tag className="w-4 h-4" />
-                            {post.tags.join(", ")}
+                            {tags.join(", ")}
                         </span>
                     )}
                 </div>
             </header>
 
             {/* Feature Image */}
-            {
-                post.coverImage && (
-                    <div className="relative w-full h-[400px] md:h-[500px] max-w-6xl mx-auto mb-16 px-4">
-                        <div className="relative w-full h-full rounded-sm overflow-hidden shadow-2xl">
-                            {/* Using img tag directly or Next Image with specific config if easier for dynamic paths */}
-                            <img
-                                src={post.coverImage}
-                                alt={post.title}
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
+            {post.coverImage && (
+                <div className="relative w-full h-auto max-w-5xl mx-auto mb-16 px-4">
+                    <div className="relative w-full rounded-sm overflow-hidden shadow-2xl">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={post.coverImage}
+                            alt={post.title}
+                            className="w-full h-auto max-h-[600px] object-cover mx-auto"
+                        />
                     </div>
-                )
-            }
+                </div>
+            )}
 
-            {/* Separator - Only show if no image, or maybe styled differently. Keeping logic simple. */}
+            {/* Separator */}
             {!post.coverImage && <div className="w-24 h-1 bg-blood-rose mx-auto mb-16"></div>}
 
             {/* Content */}
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="prose prose-invert prose-lg max-w-none prose-headings:font-serif prose-headings:text-gold prose-a:text-blood-rose hover:prose-a:text-red-400">
-                    <div className="whitespace-pre-wrap font-light text-gray-300 leading-relaxed">
-                        {post.content}
-                    </div>
+                <div className="prose prose-invert prose-lg max-w-none prose-headings:font-serif prose-headings:text-gold prose-a:text-blood-rose hover:prose-a:text-red-400 prose-img:rounded-md prose-img:shadow-lg">
+                    <ReactMarkdown>{post.content}</ReactMarkdown>
                 </div>
             </div>
 
