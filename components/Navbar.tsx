@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, BookOpen, Heart, Users, Map } from "lucide-react";
+import { Menu, X, BookOpen, Heart, Users, Map, Crown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -10,6 +10,7 @@ const navItems = [
     { name: "Characters", href: "/characters", icon: Users },
     { name: "World", href: "/world", icon: Map },
     { name: "Blog", href: "/blog", icon: Heart },
+    { name: "VIP Lounge", href: "/vip", icon: Crown },
 ];
 
 export default function Navbar() {

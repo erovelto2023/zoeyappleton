@@ -181,6 +181,34 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* VIP Lounge Teaser */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-charcoal border-y border-gray-800">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+          <div className="flex-1">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">The VIP Lounge</h2>
+            <div className="w-24 h-1 bg-gold mb-8"></div>
+            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+              Take a break from the drama and enter the inner circle. Play exclusive games featuring your favorite characters, including the new <span className="text-gold font-bold">Sterling City Solitaire</span>.
+            </p>
+            <Link
+              href="/vip"
+              className="inline-block bg-transparent border border-gold text-gold hover:bg-gold hover:text-midnight px-10 py-4 rounded-sm uppercase tracking-widest text-sm font-bold transition-all duration-300"
+            >
+              Enter VIP Lounge
+            </Link>
+          </div>
+          <div className="flex-1 w-full relative group">
+            <div className="absolute inset-0 bg-gold/20 blur-3xl rounded-full opacity-0 group-hover:opacity-50 transition-opacity duration-700"></div>
+            <Link href="/vip" className="block relative overflow-hidden rounded-lg shadow-2xl border border-gray-700 group-hover:border-gold transition-colors duration-300">
+              <div className="aspect-video bg-[url('/images/background-1.png')] bg-cover bg-center transition-transform duration-700 group-hover:scale-105"></div>
+              <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                <span className="text-3xl font-serif font-bold text-white group-hover:text-gold transition-colors">Play Now</span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Newsletter Section */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-[url('https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?q=80&w=2666&auto=format&fit=crop')] bg-cover bg-fixed bg-center relative">
         <div className="absolute inset-0 bg-midnight/90"></div>
