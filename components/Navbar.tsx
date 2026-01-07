@@ -37,12 +37,7 @@ export default function Navbar() {
                                     {item.name}
                                 </Link>
                             ))}
-                            <Link
-                                href="/newsletter"
-                                className="bg-blood-rose hover:bg-red-900 text-white px-4 py-2 rounded-sm text-sm font-medium transition-colors duration-300"
-                            >
-                                Join VIP
-                            </Link>
+
                         </div>
                     </div>
                     <div className="-mr-2 flex md:hidden">
@@ -70,13 +65,7 @@ export default function Navbar() {
                             {item.name}
                         </Link>
                     ))}
-                    <Link
-                        href="/newsletter"
-                        className="bg-blood-rose text-white block px-3 py-2 rounded-md text-base font-medium mt-4 text-center"
-                        onClick={() => setIsOpen(false)}
-                    >
-                        Join VIP
-                    </Link>
+
                 </div>
             </div>
         </nav>
