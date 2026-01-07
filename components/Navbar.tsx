@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, BookOpen, Heart, Users, Map, Crown } from "lucide-react";
+import { Menu, X, BookOpen, Heart, Users, Map, Crown, Youtube } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -11,6 +11,7 @@ const navItems = [
     { name: "World", href: "/world", icon: Map },
     { name: "Blog", href: "/blog", icon: Heart },
     { name: "VIP Lounge", href: "/vip", icon: Crown },
+    { name: "YouTube", href: "https://www.youtube.com/@ZoeyAppleton", icon: Youtube },
 ];
 
 export default function Navbar() {
@@ -31,6 +32,8 @@ export default function Navbar() {
                                 <Link
                                     key={item.name}
                                     href={item.href}
+                                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                                     className="hover:text-gold transition-colors duration-300 px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2"
                                 >
                                     <item.icon className="w-4 h-4" />
@@ -58,6 +61,8 @@ export default function Navbar() {
                         <Link
                             key={item.name}
                             href={item.href}
+                            target={item.href.startsWith("http") ? "_blank" : undefined}
+                            rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                             className="text-cream hover:text-gold block px-3 py-2 rounded-md text-base font-medium flex items-center gap-2"
                             onClick={() => setIsOpen(false)}
                         >
