@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Book, Users, PenTool, Home, MessageSquare } from "lucide-react";
+import { LayoutDashboard, Book, Users, PenTool, Home, MessageSquare, Mail } from "lucide-react";
 
 const routes = [
     {
@@ -30,6 +30,11 @@ const routes = [
         label: "Messages",
         icon: MessageSquare,
         href: "/admin/messages",
+    },
+    {
+        label: "Heartstrings",
+        icon: Mail,
+        href: "/admin/heartstrings",
     },
 ];
 
