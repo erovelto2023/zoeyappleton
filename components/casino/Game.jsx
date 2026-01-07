@@ -449,7 +449,9 @@ function Game() {
 
   return (
     <Box sx={{
-      height: '100vh',
+      minHeight: '100vh',
+      paddingTop: '80px', // Clear the fixed navbar
+      overflowY: 'auto',
       display: 'flex',
       flexDirection: 'column',
       backgroundImage: `url(/images/${settings.background}.png)`,
