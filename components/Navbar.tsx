@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 const navItems = [
     { name: "Books", href: "/books", icon: BookOpen },
     { name: "Characters", href: "/characters", icon: Users },
-    { name: "World", href: "/world", icon: Map },
     { name: "Blog", href: "/blog", icon: Heart },
     { name: "VIP Lounge", href: "/vip", icon: Crown },
     { name: "YouTube", href: "https://www.youtube.com/@ZoeyAppleton", icon: Youtube },

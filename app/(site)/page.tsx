@@ -4,6 +4,7 @@ import Book from "@/models/Book";
 import Character from "@/models/Character";
 import CharacterCard from "@/components/CharacterCard";
 import Newsletter from "@/components/Newsletter";
+import HeroSlideshow from "@/components/HeroSlideshow";
 
 export const dynamic = 'force-dynamic';
 
@@ -38,36 +39,7 @@ export default async function Home() {
     <div className="min-h-screen bg-midnight text-cream">
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518135714426-c18f5ffb6f4d?q=80&w=2696&auto=format&fit=crop')] bg-cover bg-center opacity-30"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 via-midnight/40 to-midnight"></div>
-
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-          <p className="text-gold text-sm md:text-base font-bold uppercase tracking-[0.3em] mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            The Zoey Appleton Universe
-          </p>
-          <h1 className="text-6xl md:text-8xl font-serif font-bold text-white mb-8 tracking-tight leading-none animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-100">
-            Danger. Desire. <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold to-white">Destiny.</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 font-light max-w-2xl mx-auto mb-12 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-            Step into a world where ruthless billionaires meet their match, and love is the only weapon strong enough to survive.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
-            <Link
-              href="/books"
-              className="bg-blood-rose hover:bg-red-800 text-white px-10 py-4 rounded-sm uppercase tracking-widest text-sm font-bold transition-all duration-300 shadow-lg hover:shadow-blood-rose/20"
-            >
-              Start Reading
-            </Link>
-            <Link
-              href="/characters"
-              className="bg-transparent border border-gold text-gold hover:bg-gold hover:text-midnight px-10 py-4 rounded-sm uppercase tracking-widest text-sm font-bold transition-all duration-300"
-            >
-              Meet the Players
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HeroSlideshow />
 
       {/* Featured Books Section */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-midnight relative">

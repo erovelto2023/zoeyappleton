@@ -2,6 +2,7 @@ import CharacterGrid from "@/components/CharacterGrid";
 import dbConnect from "@/lib/db";
 import Character from "@/models/Character";
 import Book from "@/models/Book";
+import HeroSlideshow from "@/components/HeroSlideshow";
 
 export const dynamic = 'force-dynamic';
 
@@ -36,13 +37,12 @@ export default async function CharactersPage() {
     }));
 
     return (
-        <div className="min-h-screen bg-midnight pt-24 pb-20">
-            {/* Hero Section */}
-            <div className="relative py-20 mb-8 overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?q=80&w=2531&auto=format&fit=crop')] bg-cover bg-center opacity-20"></div>
-                <div className="absolute inset-0 bg-gradient-to-b from-midnight/80 via-midnight/90 to-midnight"></div>
+        <div className="min-h-screen bg-midnight">
+            <HeroSlideshow />
 
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Header */}
+                <div className="text-center mb-16">
                     <h1 className="text-5xl md:text-7xl font-serif font-bold text-cream mb-6 tracking-tight">
                         Explore the <span className="text-gold">Universe</span>
                     </h1>
@@ -51,10 +51,10 @@ export default async function CharactersPage() {
                         Billionaires. Spies. Survivors. Lovers.
                     </p>
                 </div>
-            </div>
 
-            {/* Grid & Filters */}
-            <CharacterGrid characters={serializedCharacters} seriesList={seriesList} />
+                {/* Grid & Filters */}
+                <CharacterGrid characters={serializedCharacters} seriesList={seriesList} />
+            </div>
         </div>
     );
 }

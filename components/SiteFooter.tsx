@@ -35,7 +35,6 @@ export default function SiteFooter() {
             <ul className="space-y-2">
               <li><Link href="/books" className="text-gray-400 hover:text-gold transition-colors">Books</Link></li>
               <li><Link href="/characters" className="text-gray-400 hover:text-gold transition-colors">Characters</Link></li>
-              <li><Link href="/world" className="text-gray-400 hover:text-gold transition-colors">World Map</Link></li>
               <li><Link href="/blog" className="text-gray-400 hover:text-gold transition-colors">Behind the Scenes</Link></li>
             </ul>
           </div>
