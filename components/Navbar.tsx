@@ -17,8 +17,8 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="bg-midnight/95 text-cream fixed w-full z-50 backdrop-blur-sm border-b border-charcoal">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav className="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 glass-dark rounded-2xl border-white/5 transition-all duration-300">
+            <div className="mx-auto px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
                         <Link href="/" className="text-2xl font-serif font-bold text-gold tracking-wider">
@@ -54,22 +54,21 @@ export default function Navbar() {
             </div>
 
             {/* Mobile menu */}
-            <div className={cn("md:hidden", isOpen ? "block" : "hidden")}>
-                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-midnight border-b border-charcoal">
+            <div className={cn("md:hidden transition-all duration-300 ease-in-out overflow-hidden", isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0")}>
+                <div className="px-4 pt-2 pb-6 space-y-2 border-t border-white/5">
                     {navItems.map((item) => (
                         <Link
                             key={item.name}
                             href={item.href}
                             target={item.href.startsWith("http") ? "_blank" : undefined}
                             rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                            className="text-cream hover:text-gold block px-3 py-2 rounded-md text-base font-medium flex items-center gap-2"
+                            className="text-white/70 hover:text-gold block px-3 py-3 rounded-xl text-base font-medium flex items-center gap-3 hover:bg-white/5 transition-all"
                             onClick={() => setIsOpen(false)}
                         >
-                            <item.icon className="w-4 h-4" />
+                            <item.icon className="w-5 h-5 text-gold/70" />
                             {item.name}
                         </Link>
                     ))}
-
                 </div>
             </div>
         </nav>
