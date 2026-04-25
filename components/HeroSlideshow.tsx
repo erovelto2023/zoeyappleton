@@ -45,7 +45,7 @@ export default function HeroSlideshow() {
 
             {/* Content Container */}
             <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4 max-w-7xl mx-auto">
-                <div className="glass-dark p-12 md:p-16 rounded-[2rem] border-white/5 relative overflow-hidden group">
+                <div className="glass-dark p-8 md:p-10 rounded-[2rem] border-white/5 relative overflow-hidden group max-w-5xl w-full mx-auto">
                     {/* Animated Decorative Corners */}
                     <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-gold/30 rounded-tl-[2rem] transition-all duration-700 group-hover:w-24 group-hover:h-24 group-hover:border-gold"></div>
                     <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-gold/30 rounded-br-[2rem] transition-all duration-700 group-hover:w-24 group-hover:h-24 group-hover:border-gold"></div>
@@ -77,7 +77,7 @@ export default function HeroSlideshow() {
                                             delay: 0.2 + (i * 0.2),
                                             ease: [0.22, 1, 0.36, 1]
                                         }}
-                                        className="text-6xl md:text-9xl font-serif font-bold text-white tracking-tight leading-none text-glow"
+                                        className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white tracking-tight leading-tight text-glow"
                                     >
                                         {part}<span className="text-gold">.</span>
                                     </motion.h1>
@@ -94,7 +94,7 @@ export default function HeroSlideshow() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 10 }}
                             transition={{ duration: 0.8, delay: 0.8 }}
-                            className="text-lg md:text-2xl text-gray-300 font-light max-w-2xl mx-auto mb-12 leading-relaxed"
+                            className="text-base md:text-xl text-gray-300 font-light max-w-3xl mx-auto mb-8 leading-relaxed"
                         >
                             {currentSlide.subtitle}
                         </motion.p>
@@ -109,14 +109,14 @@ export default function HeroSlideshow() {
                     >
                         <Link
                             href="/books"
-                            className="group/btn relative px-10 py-4 bg-gold text-midnight font-bold uppercase tracking-widest text-sm rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_10px_20px_rgba(212,175,55,0.3)]"
+                            className="group/btn relative px-8 py-3 md:py-4 bg-gold text-midnight font-bold uppercase tracking-widest text-xs md:text-sm rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_10px_20px_rgba(212,175,55,0.3)]"
                         >
                             <span className="relative z-10">Start Reading</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
                         </Link>
                         <Link
                             href="/characters"
-                            className="px-10 py-4 bg-white/5 backdrop-blur-md border border-white/20 text-white hover:bg-white hover:text-midnight font-bold uppercase tracking-widest text-sm rounded-full transition-all duration-500 hover:scale-105"
+                            className="px-8 py-3 md:py-4 bg-white/5 backdrop-blur-md border border-white/20 text-white hover:bg-white hover:text-midnight font-bold uppercase tracking-widest text-xs md:text-sm rounded-full transition-all duration-500 hover:scale-105"
                         >
                             Meet the Players
                         </Link>
