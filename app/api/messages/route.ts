@@ -6,18 +6,30 @@ export async function POST(req: NextRequest) {
     try {
         await dbConnect();
         const body = await req.json();
+        const { name, email, message, honeypot } = body;
+
+        // Honeypot check for bots
+        if (honeypot) {
+            return NextResponse.json({ message: "Spam detected" }, { status: 400 });
+        }
 
         // Basic validation
-        if (!body.name || !body.email || !body.message) {
+        if (!name || !email || !message) {
             return NextResponse.json(
                 { error: "Missing required fields" },
                 { status: 400 }
             );
         }
 
-        const message = await Message.create(body);
+        // Explicitly only save allowed fields to prevent mass assignment
+        const newMessage = await Message.create({
+            name,
+            email,
+            message,
+            read: false, // Ensure new messages are unread
+        });
 
-        return NextResponse.json(message, { status: 201 });
+        return NextResponse.json(newMessage, { status: 201 });
     } catch (error: any) {
         console.error("Error submitting message:", error);
         return NextResponse.json(

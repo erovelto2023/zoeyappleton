@@ -3,12 +3,17 @@ import dbConnect from "@/lib/db";
 import Character from "@/models/Character";
 import Book from "@/models/Book";
 
-export default async function CharacterPage({ params }: { params: { id: string } }) {
+export default async function CharacterPage({ 
+    params 
+}: { 
+    params: Promise<{ id: string }> 
+}) {
+    const { id } = await params;
     await dbConnect();
 
     // Ensure Book model is registered
     // We can just query it lightly or rely on import
-    const existingCharacter = await Character.findById(params.id);
+    const existingCharacter = await Character.findById(id);
     const books = await Book.find({}).sort({ title: 1 });
 
     const formattedBooks = books.map((book) => ({

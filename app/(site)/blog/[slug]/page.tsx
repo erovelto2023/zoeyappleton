@@ -10,13 +10,18 @@ import mongoose from "mongoose";
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ 
+    params 
+}: { 
+    params: Promise<{ slug: string }> 
+}): Promise<Metadata> {
+    const { slug } = await params;
     await dbConnect();
     let post = null;
     try {
-        post = await Post.findOne({ slug: params.slug });
-        if (!post && mongoose.Types.ObjectId.isValid(params.slug)) {
-            post = await Post.findById(params.slug);
+        post = await Post.findOne({ slug });
+        if (!post && mongoose.Types.ObjectId.isValid(slug)) {
+            post = await Post.findById(slug);
         }
     } catch (e) {
         // error
@@ -34,14 +39,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ 
+    params 
+}: { 
+    params: Promise<{ slug: string }> 
+}) {
+    const { slug } = await params;
     await dbConnect();
 
     let post;
     try {
-        post = await Post.findOne({ slug: params.slug });
-        if (!post && mongoose.Types.ObjectId.isValid(params.slug)) {
-            post = await Post.findById(params.slug);
+        post = await Post.findOne({ slug });
+        if (!post && mongoose.Types.ObjectId.isValid(slug)) {
+            post = await Post.findById(slug);
         }
     } catch (error) {
         notFound();

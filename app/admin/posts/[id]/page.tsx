@@ -2,12 +2,17 @@ import dbConnect from "@/lib/db";
 import Post from "@/models/Post";
 import { PostForm } from "@/components/admin/post-form";
 
-export default async function EditPostPage({ params }: { params: { id: string } }) {
+export default async function EditPostPage({ 
+    params 
+}: { 
+    params: Promise<{ id: string }> 
+}) {
+    const { id } = await params;
     await dbConnect();
 
     let post = null;
     try {
-        post = await Post.findById(params.id);
+        post = await Post.findById(id);
     } catch (e) {
         // invalid id
     }

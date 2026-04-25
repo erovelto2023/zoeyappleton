@@ -1,14 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { writeFile, mkdir } from "fs/promises";
+import { isAdmin } from "@/lib/admin";
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"];
 
 export async function POST(request: NextRequest) {
     try {
+        // 1. Authorization
+        if (!(await isAdmin())) {
+            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
+        }
+
         const data = await request.formData();
         const file: File | null = data.get("file") as unknown as File;
 
         if (!file) {
             return NextResponse.json({ success: false, message: "No file found" }, { status: 400 });
+        }
+
+        // 2. Size validation
+        if (file.size > MAX_FILE_SIZE) {
+            return NextResponse.json({ success: false, message: "File too large (max 5MB)" }, { status: 400 });
+        }
+
+        // 3. Type validation
+        if (!ALLOWED_TYPES.includes(file.type)) {
+            return NextResponse.json({ success: false, message: "Invalid file type. Only images are allowed." }, { status: 400 });
         }
 
         const bytes = await file.arrayBuffer();

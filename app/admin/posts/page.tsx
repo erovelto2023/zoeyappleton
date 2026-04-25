@@ -20,12 +20,12 @@ export const dynamic = 'force-dynamic';
 export default async function PostsPage({
     searchParams,
 }: {
-    searchParams?: {
+    searchParams: Promise<{
         query?: string;
-    };
+    }>;
 }) {
+    const { query = "" } = await searchParams;
     await dbConnect();
-    const query = searchParams?.query || "";
     const filter = query ? { title: { $regex: query, $options: "i" } } : {};
 
     const posts = await Post.find(filter).sort({ createdAt: -1 });

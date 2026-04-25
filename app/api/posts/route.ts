@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import Post from "@/models/Post";
-import { auth } from "@clerk/nextjs/server";
+import { isAdmin } from "@/lib/admin";
 import slugify from "slugify";
 
 export async function GET(req: NextRequest) {
@@ -16,8 +16,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
-        const { userId } = auth();
-        if (!userId) {
+        if (!(await isAdmin())) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 

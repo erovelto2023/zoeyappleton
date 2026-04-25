@@ -29,8 +29,13 @@ async function getCharacter(id: string) {
     }
 }
 
-export default async function CharacterPage({ params }: { params: { id: string } }) {
-    const character = await getCharacter(params.id);
+export default async function CharacterPage({ 
+    params 
+}: { 
+    params: Promise<{ id: string }> 
+}) {
+    const { id } = await params;
+    const character = await getCharacter(id);
 
     if (!character) {
         notFound();

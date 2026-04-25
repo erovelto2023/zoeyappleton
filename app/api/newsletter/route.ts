@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import Subscriber from "@/models/Subscriber";
 import { auth } from "@clerk/nextjs/server";
+import { isAdmin } from "@/lib/admin";
 
 export async function POST(req: NextRequest) {
     try {
@@ -35,9 +36,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
     try {
-        const { userId } = auth();
-        // Protect this route - admin only
-        if (!userId) {
+        if (!(await isAdmin())) {
             return new NextResponse("Unauthorized", { status: 401 });
         }
 

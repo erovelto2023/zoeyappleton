@@ -12,12 +12,12 @@ export const dynamic = 'force-dynamic';
 export default async function CharactersPage({
     searchParams,
 }: {
-    searchParams?: {
+    searchParams: Promise<{
         query?: string;
-    };
+    }>;
 }) {
+    const { query = "" } = await searchParams;
     await dbConnect();
-    const query = searchParams?.query || "";
     const filter = query ? { name: { $regex: query, $options: "i" } } : {};
 
     // We handle potential population if Book model is registered

@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import Book from "@/models/Book";
-import { auth } from "@clerk/nextjs/server";
+import { isAdmin } from "@/lib/admin";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { 
+    params 
+}: { 
+    params: Promise<{ id: string }> 
+}) {
     try {
+        const { id } = await params;
         await dbConnect();
-        const book = await Book.findById(params.id);
+        const book = await Book.findById(id);
         if (!book) {
             return NextResponse.json({ error: "Book not found" }, { status: 404 });
         }
@@ -16,16 +21,20 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { 
+    params 
+}: { 
+    params: Promise<{ id: string }> 
+}) {
     try {
-        const { userId } = auth();
-        if (!userId) {
+        const { id } = await params;
+        if (!(await isAdmin())) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         await dbConnect();
         const body = await req.json();
-        const book = await Book.findByIdAndUpdate(params.id, body, { new: true });
+        const book = await Book.findByIdAndUpdate(id, body, { new: true });
 
         if (!book) {
             return NextResponse.json({ error: "Book not found" }, { status: 404 });
@@ -37,15 +46,19 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { 
+    params 
+}: { 
+    params: Promise<{ id: string }> 
+}) {
     try {
-        const { userId } = auth();
-        if (!userId) {
+        const { id } = await params;
+        if (!(await isAdmin())) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         await dbConnect();
-        const book = await Book.findByIdAndDelete(params.id);
+        const book = await Book.findByIdAndDelete(id);
 
         if (!book) {
             return NextResponse.json({ error: "Book not found" }, { status: 404 });

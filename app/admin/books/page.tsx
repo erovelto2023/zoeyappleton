@@ -13,14 +13,14 @@ export const dynamic = 'force-dynamic';
 export default async function BooksPage({
     searchParams,
 }: {
-    searchParams?: {
+    searchParams: Promise<{
         query?: string;
         page?: string;
-    };
+    }>;
 }) {
+    const { query = "", page: pageStr } = await searchParams;
     await dbConnect();
-    const query = searchParams?.query || "";
-    const page = Number(searchParams?.page) || 1;
+    const page = Number(pageStr) || 1;
     const limit = 8;
     const skip = (page - 1) * limit;
 

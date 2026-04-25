@@ -2,12 +2,17 @@ import dbConnect from "@/lib/db";
 import Book from "@/models/Book";
 import { BookForm } from "@/components/admin/book-form";
 
-export default async function BookPage({ params }: { params: { id: string } }) {
+export default async function BookPage({ 
+    params 
+}: { 
+    params: Promise<{ id: string }> 
+}) {
+    const { id } = await params;
     await dbConnect();
 
     let book = null;
     try {
-        book = await Book.findById(params.id);
+        book = await Book.findById(id);
     } catch (e) {
         // invalid id format
     }

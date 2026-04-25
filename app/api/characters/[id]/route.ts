@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import Character from "@/models/Character";
-import { auth } from "@clerk/nextjs/server";
+import { isAdmin } from "@/lib/admin";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { 
+    params 
+}: { 
+    params: Promise<{ id: string }> 
+}) {
     try {
+        const { id } = await params;
         await dbConnect();
-        const character = await Character.findById(params.id);
+        const character = await Character.findById(id);
         if (!character) {
             return NextResponse.json({ error: "Character not found" }, { status: 404 });
         }
@@ -16,16 +21,20 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { 
+    params 
+}: { 
+    params: Promise<{ id: string }> 
+}) {
     try {
-        const { userId } = auth();
-        if (!userId) {
+        const { id } = await params;
+        if (!(await isAdmin())) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         await dbConnect();
         const body = await req.json();
-        const character = await Character.findByIdAndUpdate(params.id, body, { new: true });
+        const character = await Character.findByIdAndUpdate(id, body, { new: true });
 
         if (!character) {
             return NextResponse.json({ error: "Character not found" }, { status: 404 });
@@ -37,15 +46,19 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { 
+    params 
+}: { 
+    params: Promise<{ id: string }> 
+}) {
     try {
-        const { userId } = auth();
-        if (!userId) {
+        const { id } = await params;
+        if (!(await isAdmin())) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         await dbConnect();
-        const character = await Character.findByIdAndDelete(params.id);
+        const character = await Character.findByIdAndDelete(id);
 
         if (!character) {
             return NextResponse.json({ error: "Character not found" }, { status: 404 });
