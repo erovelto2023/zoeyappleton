@@ -24,7 +24,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function GlossaryTermPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     await dbConnect();
-    const term = await GlossaryTerm.findOne({ slug }).lean() as any;
+    
+    // Fetch and increment views in one operation
+    const term = await GlossaryTerm.findOneAndUpdate(
+        { slug },
+        { $inc: { views: 1 } },
+        { new: true }
+    ).lean() as any;
 
     if (!term) {
         notFound();
