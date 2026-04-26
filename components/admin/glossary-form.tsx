@@ -36,9 +36,9 @@ export function GlossaryForm({ initialData }: { initialData: any }) {
 
         const processedData = {
             ...formData,
-            microTropes: formData.microTropes.split(",").map(s => s.trim()).filter(Boolean),
-            relatedTropes: formData.relatedTropes.split(",").map(s => s.trim()).filter(Boolean),
-            seoKeywords: formData.seoKeywords.split(",").map(s => s.trim()).filter(Boolean),
+            microTropes: formData.microTropes.split(",").map((s: string) => s.trim()).filter(Boolean),
+            relatedTropes: formData.relatedTropes.split(",").map((s: string) => s.trim()).filter(Boolean),
+            seoKeywords: formData.seoKeywords.split(",").map((s: string) => s.trim()).filter(Boolean),
         };
 
         const result = await updateGlossaryTerm(initialData._id, processedData);
