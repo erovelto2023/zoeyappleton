@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, BookOpen, Heart, Users, Map, Crown, Youtube } from "lucide-react";
+import { Menu, X, BookOpen, Heart, Users, Map, Crown, Youtube, Library } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
     { name: "Books", href: "/books", icon: BookOpen },
     { name: "Characters", href: "/characters", icon: Users },
     { name: "Blog", href: "/blog", icon: Heart },
+    { name: "Glossary", href: "/glossary", icon: Library },
     { name: "VIP Lounge", href: "/vip", icon: Crown },
     { name: "YouTube", href: "https://www.youtube.com/@ZoeyAppleton", icon: Youtube },
 ];
