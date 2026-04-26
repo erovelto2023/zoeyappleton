@@ -101,7 +101,7 @@ export default function BulkImportGlossaryPage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="text-sm text-amber-700 dark:text-amber-300">
-                            Ensure the AI outputs a valid JSON Array `[ {...} ]`. If a keyword already exists, it will be updated with the new information.
+                            Ensure the AI outputs a valid JSON Array `{"[ {...} ]"}`. If a keyword already exists, it will be updated with the new information.
                         </CardContent>
                     </Card>
                 </div>
