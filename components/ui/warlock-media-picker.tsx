@@ -29,7 +29,7 @@ export function WarlockMediaPicker({ onSelect, children }: WarlockMediaPickerPro
         try {
             // Might need a CORS proxy if warlockpublishing.com does not allow direct fetching,
             // but we'll try fetching directly first.
-            const res = await fetch("https://www.warlockpublishing.com/api/gallery?status=published&limit=50");
+            const res = await fetch("https://warlockpublishing.com/api/gallery?status=published&limit=50");
             if (!res.ok) {
                 throw new Error("Failed to fetch media");
             }
@@ -43,7 +43,7 @@ export function WarlockMediaPicker({ onSelect, children }: WarlockMediaPickerPro
     };
 
     const handleSelect = (image: any) => {
-        const fullUrl = `https://www.warlockpublishing.com${image.fileUrl}`;
+        const fullUrl = `https://warlockpublishing.com${image.fileUrl}`;
         onSelect(fullUrl);
         setOpen(false);
     };
@@ -53,7 +53,7 @@ export function WarlockMediaPicker({ onSelect, children }: WarlockMediaPickerPro
             <DialogTrigger asChild>
                 {children}
             </DialogTrigger>
-            <DialogContent className="max-w-4xl h-[80vh] flex flex-col">
+            <DialogContent className="max-w-4xl h-[80vh] flex flex-col" aria-describedby={undefined}>
                 <DialogHeader>
                     <DialogTitle>Select Warlock Publishing Media</DialogTitle>
                 </DialogHeader>
@@ -76,7 +76,7 @@ export function WarlockMediaPicker({ onSelect, children }: WarlockMediaPickerPro
                                     onClick={() => handleSelect(img)}
                                 >
                                     <Image
-                                        src={`https://www.warlockpublishing.com${img.thumbnailUrl || img.fileUrl}`}
+                                        src={`https://warlockpublishing.com${img.thumbnailUrl || img.fileUrl}`}
                                         alt={img.altText || img.title || "Image"}
                                         fill
                                         className="object-cover"
