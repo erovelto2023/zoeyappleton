@@ -27,7 +27,8 @@ export function WarlockMediaPicker({ onSelect, children }: WarlockMediaPickerPro
         setLoading(true);
         setError("");
         try {
-            const res = await fetch("/api/warlock-gallery?status=published&limit=50");
+            const apiUrl = process.env.NEXT_PUBLIC_GALLERY_API_URL || "https://kbusinessacademy.com/api/gallery";
+            const res = await fetch(`${apiUrl}?status=published&limit=50`);
             if (!res.ok) {
                 throw new Error("Failed to fetch media");
             }
@@ -41,7 +42,7 @@ export function WarlockMediaPicker({ onSelect, children }: WarlockMediaPickerPro
     };
 
     const handleSelect = (image: any) => {
-        const fullUrl = `https://warlockpublishing.com${image.fileUrl}`;
+        const fullUrl = image.fileUrl;
         onSelect(fullUrl);
         setOpen(false);
     };
@@ -74,7 +75,7 @@ export function WarlockMediaPicker({ onSelect, children }: WarlockMediaPickerPro
                                     onClick={() => handleSelect(img)}
                                 >
                                     <Image
-                                        src={`https://warlockpublishing.com${img.thumbnailUrl || img.fileUrl}`}
+                                        src={img.thumbnailUrl || img.fileUrl}
                                         alt={img.altText || img.title || "Image"}
                                         fill
                                         className="object-cover"
