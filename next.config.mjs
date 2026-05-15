@@ -1,7 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        remotePatterns: []
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'www.warlockpublishing.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'warlockpublishing.com',
+            }
+        ]
     },
 };
 

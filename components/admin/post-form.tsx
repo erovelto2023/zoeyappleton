@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ImageUpload } from "@/components/ui/image-upload";
+import { WarlockMediaPicker } from "@/components/ui/warlock-media-picker";
 import {
     Form,
     FormControl,
@@ -160,7 +161,14 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData }) => {
                         name="coverImage"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Feature Image</FormLabel>
+                                <div className="flex items-center justify-between">
+                                    <FormLabel>Feature Image</FormLabel>
+                                    <WarlockMediaPicker onSelect={(url) => field.onChange(url)}>
+                                        <Button type="button" variant="outline" size="sm">
+                                            Browse Warlock Media
+                                        </Button>
+                                    </WarlockMediaPicker>
+                                </div>
                                 <FormControl>
                                     <ImageUpload
                                         value={field.value ? [field.value] : []}
@@ -200,6 +208,11 @@ export const PostForm: React.FC<PostFormProps> = ({ initialData }) => {
                                     >
                                         <ImagePlus className="w-4 h-4 mr-2" /> Insert Image
                                     </Button>
+                                    <WarlockMediaPicker onSelect={(url) => insertAtCursor(`![Image description](${url})`)}>
+                                        <Button type="button" variant="ghost" size="sm" title="Warlock Media">
+                                            <ImagePlus className="w-4 h-4 mr-2" /> Warlock Media
+                                        </Button>
+                                    </WarlockMediaPicker>
                                 </div>
                                 {showImageInserter && (
                                     <div className="p-4 border rounded-md mb-4 bg-muted/10">

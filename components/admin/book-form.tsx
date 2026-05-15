@@ -12,6 +12,7 @@ import { Trash, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ImageUpload } from "@/components/ui/image-upload";
+import { WarlockMediaPicker } from "@/components/ui/warlock-media-picker";
 import { Textarea } from "@/components/ui/textarea";
 import {
     Form,
@@ -189,7 +190,14 @@ export const BookForm: React.FC<BookFormProps> = ({ initialData }) => {
                             name="coverImage"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Cover Image</FormLabel>
+                                    <div className="flex items-center justify-between">
+                                        <FormLabel>Cover Image</FormLabel>
+                                        <WarlockMediaPicker onSelect={(url) => field.onChange(url)}>
+                                            <Button type="button" variant="outline" size="sm">
+                                                Browse Warlock Media
+                                            </Button>
+                                        </WarlockMediaPicker>
+                                    </div>
                                     <FormControl>
                                         <ImageUpload
                                             value={field.value ? [field.value] : []}
