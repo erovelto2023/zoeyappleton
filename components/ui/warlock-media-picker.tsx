@@ -27,9 +27,7 @@ export function WarlockMediaPicker({ onSelect, children }: WarlockMediaPickerPro
         setLoading(true);
         setError("");
         try {
-            // Might need a CORS proxy if warlockpublishing.com does not allow direct fetching,
-            // but we'll try fetching directly first.
-            const res = await fetch("https://warlockpublishing.com/api/gallery?status=published&limit=50");
+            const res = await fetch("/api/warlock-gallery?status=published&limit=50");
             if (!res.ok) {
                 throw new Error("Failed to fetch media");
             }
